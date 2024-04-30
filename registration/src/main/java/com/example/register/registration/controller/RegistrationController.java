@@ -23,24 +23,24 @@ public class RegistrationController {
     @GetMapping("/")
     public String showHomePage() {
 
-        return "home"; // Return the view name for home page
+        return "home";
     }
 
     @GetMapping("/register")
     public String showRegistrationForm(Model model) {
         model.addAttribute("user", new Users());
-        return "register"; // returns the view register
+        return "register";
     }
 
     @PostMapping("/register")
     public String registerUser(@ModelAttribute("user") Users user, Model model) {
         if (userService.existsByEmailId(user.getEmailId())) {
             model.addAttribute("error", "User with this email already exists!");
-            return "register"; // Return back to the registration form with error message
+            return "register";
         }
 
         userService.save(user);
-        return "redirect:/register?success"; // Redirect to the register page with a success parameter
+        return "redirect:/register?success";
     }
 
 
@@ -54,7 +54,7 @@ public class RegistrationController {
     public String loginUser(@ModelAttribute("user") Users user, Model model) {
         Users existingUser = userService.findByEmailId(user.getEmailId());
         if (existingUser != null && existingUser.getPassword().equals(user.getPassword())) {
-            return "redirect:/login?success"; // Redirect to the login page after successful login
+            return "redirect:/login?success";
         } else {
             model.addAttribute("error", "Invalid email or password");
             return "login";
@@ -116,8 +116,8 @@ public class RegistrationController {
     private void sendResetPasswordEmail(String email, String resetLink) {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setTo(email);
-        message.setSubject("Reset Your Password");
-        message.setText("To reset your password, please click the link below:\n\n" + resetLink);
+        message.setSubject("Reset Your Password Mail");
+        message.setText("By clicking on the below link you can change the password :\n\n" + resetLink);
         mailSender.send(message);
     }
 }

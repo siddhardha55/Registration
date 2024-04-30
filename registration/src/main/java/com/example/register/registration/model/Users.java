@@ -93,14 +93,6 @@ public class Users {
         return resetToken;
     }
 
-    public String gender(String gender){
-        if (gender.equalsIgnoreCase("male")) {
-            return "Male";
-        }else {
-            return "Female";
-        }
-    }
-
     public void setResetToken(String resetToken) {
 
         this.resetToken = resetToken;
